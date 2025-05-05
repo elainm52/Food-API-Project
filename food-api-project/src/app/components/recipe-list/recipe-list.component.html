@@ -1,1 +1,12 @@
-<p>recipe-list works!</p>
+<div class="recipe-list">
+    <div class="recipe-card" *ngFor="let recipe of recipes">
+      <h3>{{ recipe.title }}</h3>
+      <img [src]="recipe.image" [alt]="recipe.title" />
+      <p>Calories: {{ recipe.nutrition.calories }}</p>
+      <p>Ingredients:</p>
+      <ul>
+        <li *ngFor="let ingredient of recipe.ingredients">{{ ingredient.name }}</li>
+      </ul>
+      <button [routerLink]="['/recipe', recipe.id]">See More</button>
+    </div>
+</div>

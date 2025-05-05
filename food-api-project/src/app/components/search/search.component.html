@@ -1,1 +1,19 @@
-<p>search works!</p>
+<div class="search-bar">
+    <!-- Ingredients Input -->
+    <input
+      type="text"
+      [(ngModel)]="ingredients"
+      placeholder="Enter ingredients (comma-separated)"
+    />
+  
+    <!-- Dietary Filter Dropdown -->
+    <select [(ngModel)]="diet">
+      <option value="">No Filter</option>
+      <option value="gluten free">Gluten-Free</option>
+      <option value="vegan">Vegan</option>
+      <option value="vegetarian">Vegetarian</option>
+    </select>
+  
+    <!-- Search Button -->
+    <button (click)="searchRecipes()">Search</button>
+</div>
