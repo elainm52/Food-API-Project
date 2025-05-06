@@ -10,5 +10,13 @@
     <option value="vegan">Vegan</option>
     <option value="vegetarian">Vegetarian</option>
   </select>
-  <button (click)="searchRecipes()">Search</button> 
+  <button (click)="searchRecipes()">Search</button>
+</div>
+
+<!-- Display entered ingredients -->
+<div *ngIf="ingredientList.length > 0" class="entered-ingredients">
+  <h4>Entered Ingredients:</h4>
+  <ul>
+    <li *ngFor="let ingredient of ingredientList">{{ ingredient }}</li>
+  </ul>
 </div>

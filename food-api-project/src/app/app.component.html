@@ -3,8 +3,8 @@
     <header>
       <h1>Welcome to Food API Project</h1>
     </header>
-  </router-outlet>
+    <app-search (searchEvent)="onSearch($event)"></app-search>
+    <app-recipe-list [recipes]="recipes"></app-recipe-list>
+   </router-outlet>
   
-  
-   <app-recipe-list></app-recipe-list>
 </div>
