@@ -32,16 +32,17 @@ export class SearchComponent {
       next: (response) => {
         this.recipes = response.results; 
         this.errorMessage = '';  
+        console.log('Recipes:', this.recipes);
       },
       error: (error) => {
         this.errorMessage = error; 
         this.recipes = []; 
+        console.error('Error:', error);
        
       }
     });
   }
 
-  // Existing toggleIntolerance method
   toggleIntolerance(intolerance: string): void {
     if (this.intolerances.includes(intolerance)) {
       this.intolerances = this.intolerances.filter(item => item !== intolerance);

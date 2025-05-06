@@ -12,7 +12,7 @@ import { Recipe } from '../../interfaces/food-api-response';
   styleUrls: ['./recipe-details.component.css']
 })
 export class RecipeDetailsComponent implements OnInit {
-  recipe: any = null; 
+  recipe: Recipe | null = null; 
   errorMessage: string = ''; 
 
   constructor(

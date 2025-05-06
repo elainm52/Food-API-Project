@@ -1,16 +1,16 @@
 <div *ngIf="recipe">
-    <h1>{{ recipe?.title }}</h1>
-    <img [src]="recipe?.image" [alt]="recipe?.title" />
-    <p>Calories: {{ recipe?.nutrition?.calories }}</p>
-    <p>Protein: {{ recipe?.nutrition?.protein }}</p>
-    <p>Carbs: {{ recipe?.nutrition?.carbs }}</p>
-    <p>Fat: {{ recipe?.nutrition?.fat }}</p>
-    <h3>Ingredients:</h3>
-    <ul>
-      <li *ngFor="let ingredient of recipe?.ingredients">{{ ingredient.name }}</li>
-    </ul>
-    <h3>Equipment:</h3>
-    <ul>
-      <li *ngFor="let equipment of recipe?.equipment">{{ equipment.name }}</li>
-    </ul>
+  <h1>{{ recipe?.title }}</h1>
+  <img [src]="recipe?.image" [alt]="recipe?.title" />
+  <p>Calories: {{ recipe?.nutrition?.calories }}</p>
+  <p>Protein: {{ recipe?.nutrition?.protein }}</p>
+  <p>Carbs: {{ recipe?.nutrition?.carbs }}</p>
+  <p>Fat: {{ recipe?.nutrition?.fat }}</p>
+  <h3>Ingredients:</h3>
+  <ul>
+    <li *ngFor="let ingredient of recipe?.ingredients">{{ ingredient.name }}</li>
+  </ul>
+  <h3>Equipment:</h3>
+  <ul>
+    <li *ngFor="let equipment of recipe?.equipment">{{ equipment.name }}</li>
+  </ul>
 </div>
