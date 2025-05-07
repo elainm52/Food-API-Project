@@ -2,12 +2,15 @@
   <div class="recipe-card" *ngFor="let recipe of recipes">
     <h3>{{ recipe.title }}</h3>
     <img [src]="recipe.image" [alt]="recipe.title" />
-    <p>Calories: {{ recipe.nutrition?.calories || 'N/A' }}</p>
-    <p>Servings: {{ recipe.servings || 'N/A' }}</p>
-    <p>Ready in: {{ recipe.readyInMinutes || 'N/A' }} minutes</p>
-    <p>Ingredients:</p>
+    <p><strong>Calories:</strong> 
+      {{ recipe.nutrition?.nutrients.find(n => n.name === 'Calories')?.amount || 'N/A' }} kcal
+    </p>
+    <p><strong>Ready in:</strong> {{ recipe.readyInMinutes || 'N/A' }} minutes</p>
+    <p><strong>Ingredients:</strong></p>
     <ul>
-      <li *ngFor="let ingredient of recipe.ingredients || []">{{ ingredient.name }}</li>
+      <li *ngFor="let ingredient of recipe.ingredients || []">
+        {{ ingredient.name }} - {{ ingredient.amount }} {{ ingredient.unit }}
+      </li>
     </ul>
     <button [routerLink]="['/recipe', recipe.id]">See More</button>
   </div>

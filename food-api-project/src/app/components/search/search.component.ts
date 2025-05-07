@@ -14,19 +14,39 @@ import { Recipe } from '../../interfaces/food-api-response';
 export class SearchComponent {
   ingredients: string = '';
   diet: string = '';
-  ingredientList: string[] = []; // Store the parsed ingredients
+  ingredientList: string[] = []; 
+  
   @Output() searchEvent = new EventEmitter<Recipe[]>(); // Emit recipes to the parent component
 
   constructor(private foodApiService: FoodApiService) {}
 
   searchRecipes(): void {
-    this.ingredientList = this.ingredients.split(',').map(ingredient => ingredient.trim()); // Parse ingredients
+    this.ingredientList = this.ingredients.split(',').map(ingredient => ingredient.trim());
+    console.log('Ingredients:', this.ingredientList); // Debugging output
+  
     this.foodApiService.getRecipes(this.ingredientList, undefined, [], this.diet).subscribe({
       next: (response) => {
-        this.searchEvent.emit(response.results); // Emit recipes to the parent component
+        console.log('API Response:', response);
+        const recipeIds = response.results.map(recipe => recipe.id); // Extract recipe IDs
+        const detailedRecipes: Recipe[] = [];
+  
+        // Fetch detailed information for each recipe
+        recipeIds.forEach((id, index) => {
+          this.foodApiService.getRecipeById(id).subscribe({
+            next: (detailedRecipe) => {
+              detailedRecipes.push(detailedRecipe);
+  
+              // Emit the recipes once all details are fetched
+              if (index === recipeIds.length - 1) {
+                this.searchEvent.emit(detailedRecipes);
+              }
+            },
+            error: (error) => console.error('Error fetching recipe details:', error)
+          });
+        });
       },
       error: (error) => {
-        console.error('Error:', error);
+        console.error('Error:', error); // Debugging output
       }
     });
   }
