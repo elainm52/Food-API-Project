@@ -6,9 +6,6 @@
     <p>Servings: {{ recipe.servings || 'N/A' }}</p>
     <p>Ready in: {{ recipe.readyInMinutes || 'N/A' }} minutes</p>
     <p>Ingredients:</p>
-    <ul>
-      <li *ngFor="let ingredient of recipe.ingredients || []">{{ ingredient.name }}</li>
-    </ul>
     <button [routerLink]="['/recipe', recipe.id]">See More</button>
   </div>
 </div>
