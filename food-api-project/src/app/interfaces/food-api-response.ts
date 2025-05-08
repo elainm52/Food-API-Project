@@ -21,12 +21,11 @@ export interface Recipe {
     vegan: boolean;
     ingredients: Ingredient[]; 
     equipment: Equipment[]; 
-    nutrition: {
-      nutrients: { name: string; amount: number; unit: string }[];
-    }; 
+    nutrition: Nutrition; 
   }
   
   export interface Ingredient {
+    id: number;
     name: string;
     amount: number;
     unit: string; 

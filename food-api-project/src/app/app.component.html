@@ -1,9 +1,10 @@
 <div class="container">
-  <header>
-    <h1>Welcome to Food API Project</h1>
-  </header>
-  <app-search (searchEvent)="onSearch($event)"></app-search>
-  <app-recipe-list [recipes]="recipes"></app-recipe-list>
-  <router-outlet ></router-outlet>
-  
-</div>
+    <router-outlet>
+      <header>
+        <h1>Welcome to Food API Project</h1>
+      </header>
+      <app-search (searchEvent)="onSearch($event)"></app-search>
+      <app-recipe-list [recipes]="recipes"></app-recipe-list>
+     </router-outlet>
+    
+  </div>

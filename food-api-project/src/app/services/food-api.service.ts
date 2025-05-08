@@ -17,16 +17,15 @@ export class FoodApiService {
   
   constructor(private http: HttpClient) {}
 
-  getRecipes(
+   getRecipes(
     ingredients: string[],
     maxReadyTime?: number,
     intolerances?: string[],
     diet?: string
   ): Observable<FoodApiResponse> {
     let params = new HttpParams()
-      .set('apiKey', this.apiKey)
-      .set('addRecipeInformation', 'true'); 
-  
+      .set('apiKey', this.apiKey);
+
     if (ingredients.length > 0) {
       params = params.set('includeIngredients', ingredients.join(','));
     }
@@ -39,12 +38,13 @@ export class FoodApiService {
     if (diet) {
       params = params.set('diet', diet);
     }
-  
+
+    // Make the HTTP GET request
     return this.http.get<FoodApiResponse>(this.apiUrl, { params }).pipe(
-      map((response: FoodApiResponse) => response),
-      catchError(this.handleError)
+      map((response: FoodApiResponse) => response), // Map the response to match the interface
+      catchError(this.handleError) // Handle errors
     );
-  }
+    }
 
     getRecipeById(recipeId: number): Observable<Recipe> {
       const url = `https://api.spoonacular.com/recipes/${recipeId}/information`;
