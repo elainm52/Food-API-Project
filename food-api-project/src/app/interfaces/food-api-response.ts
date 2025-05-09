@@ -11,7 +11,6 @@ export interface Recipe {
     imageType: string;
     readyInMinutes: number; 
     servings: number; 
-    calories: number; 
     cuisines: string[]; 
     dishTypes: string[]; 
     diets: string[]; 

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable,throwError } from 'rxjs';
 import { HttpParams } from '@angular/common/http';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 import { FoodApiResponse, Recipe } from '../interfaces/food-api-response';
 
 
@@ -24,7 +24,9 @@ export class FoodApiService {
     diet?: string
   ): Observable<FoodApiResponse> {
     let params = new HttpParams()
-      .set('apiKey', this.apiKey);
+      .set('apiKey', this.apiKey)
+      .set('addRecipeInformation', 'true')
+      .set('addNutritionInformation', 'true');
 
     if (ingredients.length > 0) {
       params = params.set('includeIngredients', ingredients.join(','));
@@ -41,6 +43,7 @@ export class FoodApiService {
 
     // Make the HTTP GET request
     return this.http.get<FoodApiResponse>(this.apiUrl, { params }).pipe(
+      tap((response) => console.log('getRecipes response:', response)),
       map((response: FoodApiResponse) => response), // Map the response to match the interface
       catchError(this.handleError) // Handle errors
     );
@@ -51,6 +54,7 @@ export class FoodApiService {
       return this.http.get<Recipe>(url, {
         params: { apiKey: this.apiKey }
       });
+      
     }
 
     private handleError(error: HttpErrorResponse): Observable<never> {
