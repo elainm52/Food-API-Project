@@ -12,7 +12,9 @@ import { Recipe } from '../../interfaces/food-api-response';
     styleUrls: ['./recipe-details.component.css']
 })
 export class RecipeDetailsComponent implements OnInit {
-recipe: Recipe | null = null; 
+    recipe: Recipe | null = null; // Ensure the recipe can be null initially
+    isLoading: boolean = true; // Add a loading indicator
+    hasError: boolean = false; // Add an error flag for better UX
 
     constructor(
         private route: ActivatedRoute,
@@ -20,14 +22,34 @@ recipe: Recipe | null = null;
     ) {}
 
     ngOnInit(): void {
+        // Get the recipe ID from the route parameters
         const recipeId = Number(this.route.snapshot.paramMap.get('id'));
+
+        // Fetch recipe details using the food API service
         this.foodApiService.getRecipeById(recipeId).subscribe({
             next: (data) => {
-                this.recipe = data;
+                // Preprocess the data to ensure defaults are set
+                this.recipe = this.processRecipeData(data);
+                this.isLoading = false; // Mark as loaded
             },
             error: (error) => {
                 console.error('Error fetching recipe details:', error);
+                this.hasError = true; // Set the error flag
+                this.isLoading = false; // Mark as loaded
             }
         });
+    }
+
+    private processRecipeData(data: Recipe): Recipe {
+        return {
+            ...data,
+            analyzedInstructions: data.analyzedInstructions?.map((instruction) => ({
+                ...instruction,
+                steps: instruction.steps?.map((step) => ({
+                    ...step,
+                    equipment: step.equipment || [] 
+                })) || [] 
+            })) || [] 
+        };
     }
 }

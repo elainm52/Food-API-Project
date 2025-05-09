@@ -12,16 +12,18 @@
   <h3>Equipment</h3>
   <ul>
       <li *ngFor="let step of recipe?.analyzedInstructions[0]?.steps">
-          <span *ngIf="step.equipment?.length > 0" *ngFor="let equipment of step.equipment">
-             {{ equipment.name }}
-          </span>
+          <ng-container *ngIf="step.equipment?.length > 0">
+               <span *ngFor="let equipment of step.equipment">
+                  {{ equipment.name }}
+              </span>
+         </ng-container>
       </li>
   </ul>
 
   <h3>Instructions</h3>
-   <ul *ngIf="recipe?.analyzedInstructions?.length > 0 && recipe?.analyzedInstructions[0]?.steps">
-      <li *ngFor="let step of recipe?.analyzedInstructions[0]?.steps">
-          {{ step.step }}
-      </li>
-  </ul>
+   <ul *ngIf="recipe?.analyzedInstructions?.length > 0 && recipe?.analyzedInstructions?.[0]?.steps?.length > 0">
+      <li *ngFor="let step of recipe?.analyzedInstructions?.[0]?.steps || []">
+         {{ step.step }}
+      </li>   
+   </ul>
 </div>

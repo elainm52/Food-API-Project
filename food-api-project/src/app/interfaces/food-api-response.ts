@@ -19,11 +19,11 @@ export interface Recipe {
     vegetarian: boolean;
     vegan: boolean;
     ingredients: Ingredient[]; 
-    equipment: Equipment[]; 
     nutrition: Nutrition; 
     name: string;
     extendedIngredients?: { name: string; amount: number; unit: string }[];
-    analyzedInstructions?: { steps: { number: number; step: string }[] }[];
+    analyzedInstructions?: { steps?: { number: number; step: string; equipment?: Equipment[]; 
+  }[] }[];
   }
   
   export interface Ingredient {
