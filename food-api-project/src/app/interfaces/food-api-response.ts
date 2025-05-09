@@ -22,8 +22,8 @@ export interface Recipe {
     nutrition: Nutrition; 
     name: string;
     extendedIngredients?: { name: string; amount: number; unit: string }[];
-    analyzedInstructions?: { steps?: { number: number; step: string; equipment?: Equipment[]; 
-  }[] }[];
+    analyzedInstructions?: { steps?: { number: number; step: string; equipment?: Equipment[]; ingredients?: Ingredient[];
+}[] }[];
   }
   
   export interface Ingredient {

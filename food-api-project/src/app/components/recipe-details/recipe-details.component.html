@@ -1,29 +1,24 @@
-<div class="recipe-details">
-  <h2>{{ recipe?.title }}</h2>
-  <img [src]="recipe?.image" [alt]="recipe?.title" />
-  
-  <h3>Ingredients</h3>
+<!-- Only render if steps exist -->
+<div *ngIf="steps.length > 0">
   <ul>
-      <li *ngFor="let ingredient of recipe?.extendedIngredients">
-         {{ ingredient.amount }} {{ ingredient.unit }} {{ ingredient.name }}
-      </li>
-  </ul>
+    <li *ngFor="let step of steps">
+      {{ step.step }}
 
-  <h3>Equipment</h3>
-  <ul>
-      <li *ngFor="let step of recipe?.analyzedInstructions[0]?.steps">
-          <ng-container *ngIf="step.equipment?.length > 0">
-               <span *ngFor="let equipment of step.equipment">
-                  {{ equipment.name }}
-              </span>
-         </ng-container>
-      </li>
-  </ul>
+      <!-- Equipment -->
+      <ng-container *ngIf="step.equipment?.length">
+        <p>Equipment:</p>
+        <ul>
+          <li *ngFor="let eq of step.equipment">{{ eq.name }}</li>
+        </ul>
+      </ng-container>
 
-  <h3>Instructions</h3>
-   <ul *ngIf="recipe?.analyzedInstructions?.length > 0 && recipe?.analyzedInstructions?.[0]?.steps?.length > 0">
-      <li *ngFor="let step of recipe?.analyzedInstructions?.[0]?.steps || []">
-         {{ step.step }}
-      </li>   
-   </ul>
+      <!-- Ingredients -->
+      <ng-container *ngIf="step.ingredients?.length">
+        <p>Ingredients:</p>
+        <ul>
+          <li *ngFor="let ing of step.ingredients">{{ ing.name }}</li>
+        </ul>
+      </ng-container>
+    </li>
+  </ul>
 </div>

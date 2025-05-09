@@ -47,9 +47,14 @@ export class RecipeDetailsComponent implements OnInit {
                 ...instruction,
                 steps: instruction.steps?.map((step) => ({
                     ...step,
-                    equipment: step.equipment || [] 
+                    equipment: step.equipment || [], 
+                    ingredients: step.ingredients || [] 
                 })) || [] 
             })) || [] 
         };
     }
+    get steps() {
+  return this.recipe?.analyzedInstructions?.[0]?.steps ?? [];
+}
+
 }
