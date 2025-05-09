@@ -58,10 +58,11 @@ export class FoodApiService {
     getRecipeById(recipeId: number): Observable<Recipe> {
       const url = `https://api.spoonacular.com/recipes/${recipeId}/information`;
       return this.http.get<Recipe>(url, {
-        params: { apiKey: this.apiKey }
-      });
-      
-    }
+          params: { apiKey: this.apiKey }
+      }).pipe(
+          tap((data) => console.log('Recipe details response:', data))
+      );
+  }
 
     private handleError(error: HttpErrorResponse): Observable<never> {
       let errorMessage = 'An unknown error occurred!';
