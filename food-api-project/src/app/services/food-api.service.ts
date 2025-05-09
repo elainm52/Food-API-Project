@@ -43,8 +43,14 @@ export class FoodApiService {
 
     // Make the HTTP GET request
     return this.http.get<FoodApiResponse>(this.apiUrl, { params }).pipe(
-      tap((response) => console.log('getRecipes response:', response)),
-      map((response: FoodApiResponse) => response), // Map the response to match the interface
+      tap((response) => {
+        console.log('getRecipes response:', response);
+        // Add fallback for missing nutrition data
+        response.results.forEach((recipe) => {
+          recipe.nutrition = recipe.nutrition || { calories: 'N/A' };
+        });
+      }),
+      map((response: FoodApiResponse) => response), // Pass the response to the next operator
       catchError(this.handleError) // Handle errors
     );
     }
