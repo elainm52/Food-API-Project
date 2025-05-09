@@ -12,11 +12,11 @@ import { Recipe } from '../../interfaces/food-api-response';
     styleUrls: ['./recipe-details.component.css']
 })
 export class RecipeDetailsComponent implements OnInit {
-recipe: Recipe | undefined;
+recipe: Recipe | null = null; 
 
     constructor(
         private route: ActivatedRoute,
-        private foodApiService: FoodApiService
+        private foodApiService: FoodApiService,
     ) {}
 
     ngOnInit(): void {

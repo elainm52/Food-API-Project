@@ -5,23 +5,23 @@
   <h3>Ingredients</h3>
   <ul>
       <li *ngFor="let ingredient of recipe?.extendedIngredients">
-          {{ ingredient.original }}
+         {{ ingredient.amount }} {{ ingredient.unit }} {{ ingredient.name }}
       </li>
   </ul>
 
   <h3>Equipment</h3>
   <ul>
       <li *ngFor="let step of recipe?.analyzedInstructions[0]?.steps">
-          <span *ngFor="let equipment of step.equipment">
-              {{ equipment.name }}
+          <span *ngIf="step.equipment?.length > 0" *ngFor="let equipment of step.equipment">
+             {{ equipment.name }}
           </span>
       </li>
   </ul>
 
   <h3>Instructions</h3>
-  <ol>
+   <ul *ngIf="recipe?.analyzedInstructions?.length > 0 && recipe?.analyzedInstructions[0]?.steps">
       <li *ngFor="let step of recipe?.analyzedInstructions[0]?.steps">
           {{ step.step }}
       </li>
-  </ol>
+  </ul>
 </div>
