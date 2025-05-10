@@ -12,6 +12,7 @@ import { Recipe } from '../../interfaces/food-api-response';
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent {
+  recipes: Recipe[] = [];
   ingredients: string = '';
   diet: string = '';
   ingredientList: string[] = []; // Store the parsed ingredients
@@ -30,4 +31,5 @@ export class SearchComponent {
       }
     });
   }
+  
 }

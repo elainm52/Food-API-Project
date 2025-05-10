@@ -1,3 +1,4 @@
+<app-search (searchEvent)="onSearch($event)"></app-search>
 <div class="recipe-list">
   <div class="recipe-card" *ngFor="let recipe of recipes">
     <h3>{{ recipe.title }}</h3>
