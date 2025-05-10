@@ -47,7 +47,13 @@ export class FoodApiService {
         console.log('getRecipes response:', response);
         // Add fallback for missing nutrition data
         response.results.forEach((recipe) => {
-          recipe.nutrition = recipe.nutrition || { calories: 'N/A' };
+          recipe.nutrition = recipe.nutrition || { 
+            calories: 'N/A', 
+            protein: 'N/A', 
+            carbs: 'N/A', 
+            fat: 'N/A', 
+            nutrients: [] 
+          };
         });
       }),
       map((response: FoodApiResponse) => response), // Pass the response to the next operator
@@ -58,7 +64,7 @@ export class FoodApiService {
     getRecipeById(recipeId: number): Observable<Recipe> {
       const url = `https://api.spoonacular.com/recipes/${recipeId}/information`;
       return this.http.get<Recipe>(url, {
-          params: { apiKey: this.apiKey }
+          params: { apiKey: this.apiKey, includeNutrition: 'true' }
       }).pipe(
           tap((data) => console.log('Recipe details response:', data))
       );

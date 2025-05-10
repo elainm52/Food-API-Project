@@ -19,7 +19,7 @@ export interface Recipe {
     vegetarian: boolean;
     vegan: boolean;
     ingredients: Ingredient[]; 
-    nutrition: Nutrition; 
+    nutrition?: Nutrition; 
     name: string;
     extendedIngredients?: { name: string; amount: number; unit: string }[];
     analyzedInstructions?: { steps?: { number: number; step: string; equipment?: Equipment[]; ingredients?: Ingredient[];

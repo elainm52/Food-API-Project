@@ -28,17 +28,22 @@ export class RecipeDetailsComponent implements OnInit {
         // Fetch recipe details using the food API service
         this.foodApiService.getRecipeById(recipeId).subscribe({
             next: (data) => {
-                // Preprocess the data to ensure defaults are set
+                console.log('Fetched recipe data:', data);
                 this.recipe = this.processRecipeData(data);
-                this.isLoading = false; // Mark as loaded
+                this.isLoading = false; 
             },
             error: (error) => {
                 console.error('Error fetching recipe details:', error);
-                this.hasError = true; // Set the error flag
-                this.isLoading = false; // Mark as loaded
+                this.hasError = true; 
+                this.isLoading = false; 
             }
         });
     }
+
+    getNutrientValue(nutrientName: string): string {
+      const nutrient = this.recipe?.nutrition?.nutrients?.find(n => n.name === nutrientName);
+      return nutrient ? `${nutrient.amount} ${nutrient.unit}` : 'N/A';
+   }
 
     private processRecipeData(data: Recipe): Recipe {
         return {

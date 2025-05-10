@@ -20,5 +20,18 @@
         </ul>
       </ng-container>
     </li>
+    
   </ul>
+  <div class="nutrition-card">
+    <h3>Nutritional Information</h3>
+    <ul>
+      <li>Calories: {{ getNutrientValue('Calories') }}</li>
+      <li>Protein: {{ getNutrientValue('Protein') }}</li>
+      <li>Fat: {{ getNutrientValue('Fat') }}</li>
+      <li>Carbohydrates: {{ getNutrientValue('Carbohydrates') }}</li>
+      <li>Fiber: {{ getNutrientValue('Fiber') }}</li>
+   </ul>
+
+  </div>
+
 </div>
