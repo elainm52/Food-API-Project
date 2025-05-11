@@ -1,11 +1,18 @@
 <app-search (searchEvent)="onSearch($event)"></app-search>
-<div class="recipe-list">
-  <div class="recipe-card" *ngFor="let recipe of recipes">
-    <h3>{{ recipe.title }}</h3>
-    <img [src]="recipe.image" [alt]="recipe.title" />
-    <p>Servings: {{ recipe.servings || 'N/A' }}</p>
-    <p>Ready in: {{ recipe.readyInMinutes || 'N/A' }} minutes</p>
-    <p>Ingredients ...</p>
-    <button [routerLink]="['/recipe', recipe.id]">See More</button>
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+  <div class="col" *ngFor="let recipe of recipes">
+    <div class="card h-100 shadow-sm">
+      <img [src]="recipe.image" class="card-img-top" alt="{{ recipe.title }}">
+      <div class="card-body text-center">
+        <h5 class="card-title">{{ recipe.title }}</h5>
+        <p class="card-text">Calories: {{ recipe.nutrition?.calories || 'N/A' }}</p>
+        <p class="card-text">Servings: {{ recipe.servings || 'N/A' }}</p>
+        <p class="card-text">Ready in: {{ recipe.readyInMinutes || 'N/A' }} minutes</p>
+        <a [routerLink]="['/recipe', recipe.id]" class="btn btn-success mt-2">See More</a>
+        <button class="btn btn-outline-danger" (click)="addToFavorites(recipe)">
+          ❤️ Favorite
+       </button>
+      </div>
+    </div>
   </div>
 </div>

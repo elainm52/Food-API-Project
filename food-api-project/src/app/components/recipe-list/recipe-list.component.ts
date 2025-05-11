@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { SearchComponent } from '../search/search.component';
 import { Recipe } from '../../interfaces/food-api-response';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-recipe-list',
@@ -12,12 +13,11 @@ import { Recipe } from '../../interfaces/food-api-response';
   styleUrl: './recipe-list.component.css'
 })
 export class RecipeListComponent {
-  @Input() recipes: Recipe[] = []; // Input property to receive recipes from the parent component
-  @Input() errorMessage: string = ''; // Input property to receive error messages from the parent component
+  @Input() recipes: Recipe[] = []; 
+  @Input() errorMessage: string = ''; 
 
-  constructor() {}
+ constructor(private http: HttpClient) {}  
 
-  // Method to handle recipe selection (if needed)
   onRecipeSelected(recipe: Recipe): void {
     console.log('Selected recipe:', recipe);
   }
@@ -25,4 +25,12 @@ export class RecipeListComponent {
   onSearch(recipes: Recipe[]): void {
     this.recipes = recipes;
   }
+
+ addToFavorites(recipe: any): void {
+  this.http.post('http://localhost:5050/api/favorites', recipe).subscribe({
+    next: () => alert('Recipe added to favorites!'),
+    error: (err) => console.error('Failed to save favorite:', err)
+  });
+ }
+
 }
