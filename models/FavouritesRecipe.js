@@ -9,4 +9,4 @@ const RecipeSchema = new mongoose.Schema({
   servings: Number
 });
 
-module.exports = mongoose.model('FavoriteRecipe', RecipeSchema);
+module.exports = mongoose.model('FavouriteRecipe', RecipeSchema);

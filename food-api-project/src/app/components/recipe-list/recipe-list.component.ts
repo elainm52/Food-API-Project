@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { SearchComponent } from '../search/search.component';
 import { Recipe } from '../../interfaces/food-api-response';
 import { HttpClient } from '@angular/common/http';
+import { FavouritesComponent } from '../favourites/favourites.component';
 
 @Component({
   selector: 'app-recipe-list',
@@ -27,10 +28,19 @@ export class RecipeListComponent {
   }
 
  addToFavorites(recipe: any): void {
-  this.http.post('http://localhost:5050/api/favorites', recipe).subscribe({
+  this.http.post('http://localhost:5050/api/favourites', recipe).subscribe({
     next: () => alert('Recipe added to favorites!'),
     error: (err) => console.error('Failed to save favorite:', err)
   });
  }
+
+  removeFromFavorites(recipe: any): void {
+    this.http.delete(`http://localhost:5050/api/favourites/${recipe.id}`).subscribe({
+      next: () => alert('Recipe removed from favorites!'),
+      error: (err) => console.error('Failed to remove favourite:', err)
+    });
+  }
+
+
 
 }
