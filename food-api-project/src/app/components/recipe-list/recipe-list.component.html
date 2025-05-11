@@ -3,10 +3,9 @@
   <div class="recipe-card" *ngFor="let recipe of recipes">
     <h3>{{ recipe.title }}</h3>
     <img [src]="recipe.image" [alt]="recipe.title" />
-    <p>Calories: {{ recipe.nutrition?.calories || 'N/A' }}</p>
     <p>Servings: {{ recipe.servings || 'N/A' }}</p>
     <p>Ready in: {{ recipe.readyInMinutes || 'N/A' }} minutes</p>
-    <p>Ingredients:</p>
+    <p>Ingredients ...</p>
     <button [routerLink]="['/recipe', recipe.id]">See More</button>
   </div>
 </div>
