@@ -13,7 +13,7 @@ app.use(cors());
 app.use(express.json());
 app.use(bodyParser.json());
 
-app.post('/api/favourites', async (req, res) => {
+app.post('/api/favorites', async (req, res) => {
   try {
     const recipe = new FavouriteRecipe(req.body);
     await recipe.save();
@@ -23,8 +23,19 @@ app.post('/api/favourites', async (req, res) => {
   }
 });
 
+app.delete('/api/favorites/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    await FavouriteRecipe.findByIdAndDelete(id);
+    res.status(200).send('Deleted from favourites!');
+  } catch (err) {
+    res.status(500).send('Error deleting recipe');
+  }
+}
+);
 
-app.get('/api/favourites', async (req, res) => {
+
+app.get('/api/favorites', async (req, res) => {
   try {
     const recipes = await FavouriteRecipe.find();
     res.json(recipes);
@@ -39,7 +50,7 @@ app.listen(PORT, () => {
 
 
 
-app.use("/favourites", posts);
+app.use("/favorites", posts);
 
 
 app.use((err, _req, res, next) => {

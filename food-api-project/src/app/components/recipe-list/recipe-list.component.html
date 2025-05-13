@@ -9,11 +9,11 @@
         <p class="card-text">Servings: {{ recipe.servings || 'N/A' }}</p>
         <p class="card-text">Ready in: {{ recipe.readyInMinutes || 'N/A' }} minutes</p>
         <a [routerLink]="['/recipe', recipe.id]" class="btn btn-success mt-2">See More</a>
-        <button class="btn btn-outline-danger" (click)="addToFavorites(recipe)">
+        <button class="btn btn-outline-danger" (click)="addToFavourites(recipe)">
           ❤️ Favorite
        </button>
 
-        <button class="btn btn-outline-danger" (click)="removeFromFavorites(recipe)">
+        <button class="btn btn-outline-danger" (click)="removeFromFavourites(recipe)">
          ❌ Remove
        </button>
       </div>

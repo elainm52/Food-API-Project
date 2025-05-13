@@ -27,17 +27,27 @@ export class RecipeListComponent {
     this.recipes = recipes;
   }
 
- addToFavorites(recipe: any): void {
-  this.http.post('http://localhost:5050/api/favourites', recipe).subscribe({
-    next: () => alert('Recipe added to favorites!'),
-    error: (err) => console.error('Failed to save favorite:', err)
-  });
+ addToFavourites(recipe: any): void {
+  this.http
+    .post('http://localhost:5050/api/favorites', recipe)
+    .subscribe({
+      next: () => alert('Recipe added to favorites!'),
+      error: (err) => {
+        console.error('Failed to save favorite:', err);
+        // Log the entire error object for detailed inspection
+        console.error('HTTP Error details:', err);
+      }
+    });
  }
+   
+  
 
-  removeFromFavorites(recipe: any): void {
-    this.http.delete(`http://localhost:5050/api/favourites/${recipe.id}`).subscribe({
+ removeFromFavourites(recipe: any): void {
+  this.http
+    .delete(`http://localhost:5050/api/favorites/${recipe.id}`)
+    .subscribe({
       next: () => alert('Recipe removed from favorites!'),
-      error: (err) => console.error('Failed to remove favourite:', err)
+      error: (err) => console.error('Failed to remove favorite:', err)
     });
   }
 
