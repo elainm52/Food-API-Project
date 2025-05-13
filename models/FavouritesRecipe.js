@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const RecipeSchema = new mongoose.Schema({
   id: Number,
@@ -7,6 +7,9 @@ const RecipeSchema = new mongoose.Schema({
   nutrition: Object,
   readyInMinutes: Number,
   servings: Number
+  }, {
+  timestamps: true
 });
 
-module.exports = mongoose.model('FavouriteRecipe', RecipeSchema);
+const FavouriteRecipe = mongoose.model('FavouriteRecipe', RecipeSchema);
+export default FavouriteRecipe;

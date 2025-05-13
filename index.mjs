@@ -1,32 +1,17 @@
 import express from "express";
 import cors from "cors";
 import "./loadEnvironment.mjs";
-import "express-async-errors";
 import posts from "./routes/posts.mjs";
 import mongoose from "mongoose";
+import bodyParser from 'body-parser';                
+import FavouriteRecipe from './models/FavouritesRecipe.js';
 
-const FavouriteRecipe = require('./models/FavouritesRecipe');
-
-const app = express(); // ✅ First, create the app
+const app = express(); 
+const PORT = process.env.PORT || 5050;
 
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.json());
-
-// Add routes and Mongo connection here...
-
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
-const PORT = process.env.PORT || 5050;
-
-// Load the /posts routes
-app.use("/favourites", posts);
-
-// Global error handling
-app.use((err, _req, res, next) => {
-  res.status(500).send("Uh oh! An unexpected error occured.")
-})
 
 app.post('/api/favourites', async (req, res) => {
   try {
@@ -38,7 +23,7 @@ app.post('/api/favourites', async (req, res) => {
   }
 });
 
-// Get all favorites
+
 app.get('/api/favourites', async (req, res) => {
   try {
     const recipes = await FavouriteRecipe.find();
@@ -48,7 +33,27 @@ app.get('/api/favourites', async (req, res) => {
   }
 });
 
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
+
+
+
+app.use("/favourites", posts);
+
+
+app.use((err, _req, res, next) => {
+  res.status(500).send("Uh oh! An unexpected error occured.")
+})
+
+
+
 mongoose.connect('mongodb+srv://s00250500:rzIxGJEGbhe9j9UF@cluster0.fyhiqa7.mongodb.net/', {
   useNewUrlParser: true,
-  useUnifiedTopology: true, 
-}).then(() => console.log('MongoDB connected'));
+  useUnifiedTopology: true,
+}).then(() => console.log('MongoDB connected'))
+  .catch(err => console.error('MongoDB connection error:', err));
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port: ${PORT}`);
+});
